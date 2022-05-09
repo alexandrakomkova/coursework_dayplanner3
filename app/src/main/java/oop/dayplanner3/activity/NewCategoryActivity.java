@@ -77,9 +77,9 @@ public class NewCategoryActivity extends AppCompatActivity {
             cursor.moveToFirst();
             while(!cursor.isAfterLast()){
                 String s = cursor.getString(0);
-                Log.d(log_tag, "list: "+ s);
+                //Log.d(log_tag, "list: "+ s);
 
-                list.add(s.toString());
+                list.add(s);
                 cursor.moveToNext();
             }
 
@@ -110,6 +110,13 @@ public class NewCategoryActivity extends AppCompatActivity {
         categoryTitle.setText(list.get(id));
     }
 
+    public void cleanCategoryTitleInField() {
+        addCategory.setVisibility(View.VISIBLE);
+        updateCategory.setVisibility(View.INVISIBLE);
+        deleteCategory.setVisibility(View.INVISIBLE);
+        categoryTitle.setText("");
+    }
+
     public void updateCategory(View v) {
         ContentValues cv = new ContentValues();
 
@@ -120,7 +127,7 @@ public class NewCategoryActivity extends AppCompatActivity {
         if(rowCount > 0 ){
             Toast.makeText(this, "Updated", Toast.LENGTH_LONG).show();
             storeCategoryDataInArray();
-            categoryTitle.setText("");
+            cleanCategoryTitleInField();
         }
     }
     public void deleteCategory(View v) {
@@ -133,7 +140,7 @@ public class NewCategoryActivity extends AppCompatActivity {
         if(rowCount > 0 ){
             Toast.makeText(this, "Deleted", Toast.LENGTH_LONG).show();
             storeCategoryDataInArray();
-            categoryTitle.setText("");
+            cleanCategoryTitleInField();
         }
     }
 

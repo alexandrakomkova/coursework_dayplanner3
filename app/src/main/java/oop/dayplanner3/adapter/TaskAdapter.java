@@ -72,20 +72,27 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     @Override
     public void onBindViewHolder(@NonNull TaskAdapter.TaskViewHolder holder, @SuppressLint("RecyclerView") int position) {
         list = getCategoryList();
-        //holder.title.setText(String.valueOf(task_title.get(position)));
         holder.title.setText(findCategoryTitle(String.valueOf(task_title.get(position))));
-        if(String.valueOf(task_title.get(position)).equals("Sleep")) {
+
+        //holder.title.setText(String.valueOf(task_title.get(position)));
+
+        /*Log.d(log_tag, "found "+ findCategoryTitle(String.valueOf(task_title.get(position))));
+        Log.d(log_tag, "task(pos)"+ String.valueOf(task_title.get(position)));
+        Log.d(log_tag, "pos "+ String.valueOf(position));
+        Log.d(log_tag, "task "+ String.valueOf(task_title));*/
+
+        if(findCategoryTitle(String.valueOf(task_title.get(position))).equals("Sleep")) {
             holder.time.setText("");
         }else{
             holder.time.setText(formTimeString(String.valueOf(task_startTime.get(position)), String.valueOf(task_finishTime.get(position))));
         }
         holder.timeTotal.setText(formTotalTimeString(String.valueOf(task_startTime.get(position)), String.valueOf(task_finishTime.get(position))));
 
-        for(int i =0; i<list.size();i++){
+        /*for(int i =0; i<list.size();i++){
             if(list.get(i).equals(String.valueOf(task_title.get(position)))){
                 Log.d(log_tag,  list.get(i));
             }
-        }
+        }*/
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +137,33 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                 s = cursor.getString(0);
                 cursor.moveToNext();
                 Log.d(log_tag, "find: "+ s);
+            }
+
+            cursor.close();
+        }
+        return s;
+    }
+
+    public Integer findCategoryId(String title){
+        databaseHelper = new DatabaseHelper(context);
+        String query = "select "+databaseHelper.COLUMN_CATEGORY_ID+" from " + databaseHelper.TABLE_CATEGORY + " where " + databaseHelper.COLUMN_CATEGORY_TITLE + " = \""+title+"\"";
+
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        Integer s = 0;
+        Cursor cursor= null;
+        if(db !=null)
+        {
+            cursor = db.rawQuery(query, null);
+        }
+        cursor.moveToFirst();
+
+        if(cursor!=null && cursor.getCount()!=0) {
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+
+                s = cursor.getInt(0);
+                cursor.moveToNext();
+                Log.d(log_tag, "find id: "+ s);
             }
 
             cursor.close();

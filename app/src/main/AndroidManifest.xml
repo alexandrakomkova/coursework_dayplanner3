@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="oop.dayplanner3">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_planner"
@@ -22,8 +23,8 @@
             android:name=".activity.NewTaskActivity"/>
         <activity
             android:name=".activity.NewCategoryActivity"/>
-        <!--<activity
-            android:name=".activity.ViewRecommendActivity"/>-->
+        <activity
+            android:name=".activity.ViewRecommendActivity"/>
         <provider
             android:name=".TaskProviderDatabase"
             android:authorities="oop.dayplanner3.providers.TaskList"

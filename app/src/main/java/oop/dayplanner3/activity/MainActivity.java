@@ -23,7 +23,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 
+import oop.dayplanner3.CheckConnection;
 import oop.dayplanner3.R;
 import oop.dayplanner3.adapter.TaskAdapter;
 import oop.dayplanner3.model.Task;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     List<Task> tasks = new ArrayList<>();
     private ArrayList<String> task_id, task_title, task_startTime, task_finishTime;
     FrameLayout blueRect;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,11 +112,16 @@ public class MainActivity extends AppCompatActivity {
                                 null);
                         cursor.moveToFirst();
                         while(!cursor.isAfterLast()){
+                            Log.d("cursor 0", String.valueOf(cursor.getInt(0)));
+                            Log.d("cursor 1", cursor.getString(1));
+                            Log.d("cursor 2", cursor.getString(2));
+                            Log.d("cursor 3", cursor.getString(3));
                             task_id.add(String.valueOf(cursor.getInt(0)));
                             task_title.add(cursor.getString(1));
                             task_startTime.add(cursor.getString(2));
                             task_finishTime.add(cursor.getString(3));
                             cursor.moveToNext();
+
                         }
                         cursor.close();
                     }catch (Exception e){
@@ -160,16 +168,22 @@ public class MainActivity extends AppCompatActivity {
             case R.id.option_category:
                 addCategory();
                 return true;
+            case R.id.option_logout:
+                logoutDialog();
+                return true;
+            case R.id.option_sync:
+                sync();
+                return true;
             default:
                 return super.onContextItemSelected(item);
         }
     }
 
     public void viewRecommends(){
-//        if(taskAdapter.getItemCount()!=0) {
-//            Intent intent = new Intent(this, ViewRecommendActivity.class);
-//            startActivity(intent);
-//        }
+        if(taskAdapter.getItemCount()!=0) {
+            Intent intent = new Intent(this, ViewRecommendActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void addCategory(){
@@ -185,5 +199,25 @@ public class MainActivity extends AppCompatActivity {
                 setPositiveButton(R.string.yes, (dialog, which) -> dialog.cancel()
                 ).show();
     }
+
+    public void logoutDialog(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this, R.style.AppTheme_Dialog);
+        alertDialogBuilder.setTitle(R.string.logout_dialog_header).setMessage(R.string.logout_dialog_text).
+                setPositiveButton(R.string.yes, (dialog, which) -> logout()
+                ).setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel()
+        ).show();
+    }
+
+    public void sync(){
+        Timer timer = new Timer();
+        final int MILLISECONDS = 5000; //5min
+        timer.schedule(new CheckConnection(this), 0, MILLISECONDS);
+        timer.cancel();
+    }
+
+    public void logout(){
+        Toast.makeText(MainActivity.this, "logout", Toast.LENGTH_SHORT).show();
+    }
+
 
 }

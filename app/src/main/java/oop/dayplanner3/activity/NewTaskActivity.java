@@ -132,7 +132,7 @@ public class NewTaskActivity extends AppCompatActivity {
         });
 
         taskId = getIntent().getIntExtra("taskId", -1);
-        Log.d(log_tag, "TASKID"+taskId);
+       // Log.d(log_tag, "TASKID"+taskId);
         isEdit = getIntent().getBooleanExtra("isEdit", false);
 
 
@@ -157,8 +157,12 @@ public class NewTaskActivity extends AppCompatActivity {
         addTaskTitle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                /*itemId = (int)id;
+                 itemId = position;*/
 
-                itemId = (int)id;
+                itemId = findCategoryId(addTaskTitle.getSelectedItem().toString());
+                //Log.d(log_tag, "id: "+String.valueOf(id));
+                //Log.d(log_tag, "position: "+String.valueOf(position));
                 isNightSleep = addTaskTitle.getSelectedItem().toString().equals("Sleep");
                 if(isNightSleep){
                     showNightSleepFields();
@@ -224,7 +228,7 @@ public class NewTaskActivity extends AppCompatActivity {
             cursor.moveToFirst();
             while(!cursor.isAfterLast()){
                 String s = cursor.getString(0);
-                Log.d(log_tag, "list: "+ s);
+               // Log.d(log_tag, "list: "+ s);
 
                 list.add(s.toString());
                 cursor.moveToNext();
@@ -322,7 +326,34 @@ public class NewTaskActivity extends AppCompatActivity {
 
                 s = cursor.getString(0);
                 cursor.moveToNext();
-                Log.d(log_tag, "find: "+ s);
+                //Log.d(log_tag, "find: "+ s);
+            }
+
+            cursor.close();
+        }
+        return s;
+    }
+
+    public Integer findCategoryId(String title){
+        databaseHelper = new DatabaseHelper(getApplicationContext());
+        String query = "select "+databaseHelper.COLUMN_CATEGORY_ID+" from " + databaseHelper.TABLE_CATEGORY + " where " + databaseHelper.COLUMN_CATEGORY_TITLE + " = \""+title+"\"";
+
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        Integer s = 0;
+        Cursor cursor= null;
+        if(db !=null)
+        {
+            cursor = db.rawQuery(query, null);
+        }
+        cursor.moveToFirst();
+
+        if(cursor!=null && cursor.getCount()!=0) {
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+
+                s = cursor.getInt(0);
+                cursor.moveToNext();
+                //Log.d(log_tag, "find id: "+ s);
             }
 
             cursor.close();
@@ -339,30 +370,27 @@ public class NewTaskActivity extends AppCompatActivity {
 
                     if(isNightSleep){
                         addTaskToDatabase(
-                                itemId+1,
-                                //list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())),
+                                itemId,
                                 "0:0",
                                 nightSleepTime);
                     }else{
                         addTaskToDatabase(
-                                itemId+1,
-                                //list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())),
+                                itemId,
                                 taskStartTime.getText().toString(),
                                 taskFinishTime.getText().toString());
                     }
                 }else{
                     if(isNightSleep){
                         updateTaskToDatabase(
-                                itemId+1,
-                                //list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())),
+                                itemId,
                                 "0:0",
                                 nightSleepTime,
                                 taskId);
 
                     }else{
                     updateTaskToDatabase(
-                            itemId+1,
-                            //list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())),
+                            itemId,
+
                             taskStartTime.getText().toString(),
                             taskFinishTime.getText().toString(),
                             taskId

@@ -5,8 +5,13 @@
         android:title="View Recommendations"/>
     <item
         android:id="@+id/option_category"
-        android:title="Add Category"/>
-
+        android:title="Categories"/>
+    <item
+        android:id="@+id/option_sync"
+        android:title="Sync data"/>
+    <item
+        android:id="@+id/option_logout"
+        android:title="Logout"/>
     <item
         android:id="@+id/option_about"
         android:title="About App"/>

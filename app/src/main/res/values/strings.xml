@@ -8,6 +8,12 @@
     <string name="about_dialog_header">This is a Daily Planner!</string>
     <string name="about_dialog_text">This app will help you to organise your daily tasks and analyse your time!
     Have a nice day!! :)</string>
+    <string name="logout_dialog_header">Logout</string>
+    <string name="logout_dialog_text">Are you sure you want to logout?</string>
+    <string name="sync_no_network_text">Sorry, but you need network connection to sync your data.. :(</string>
+    <string name="sync_start_text">Sync started.
+    Please, stay in network connection</string>
+    <string name="sync_end_text">Sync done.</string>
     <string-array name="taskTitles">
         <item>Work</item>
         <item>Study</item>

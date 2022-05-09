@@ -35,6 +35,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
+        db.execSQL("CREATE TABLE "+TABLE_CATEGORY+" (" + COLUMN_CATEGORY_ID
+                + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_CATEGORY_TITLE + " TEXT UNIQUE);"); //tried to add unique option/ check if it is working
+
+
         db.execSQL("CREATE TABLE "+TABLE_TASK+" (" + COLUMN_TASK_ID
                 + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_TITLE_ID + " INTEGER, "
@@ -43,9 +48,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + " constraint _id_fk foreign key("+COLUMN_TITLE_ID+") references "+TABLE_CATEGORY+"("+ COLUMN_CATEGORY_ID+")"
                 +" on delete cascade on update cascade);");
 
-        db.execSQL("CREATE TABLE "+TABLE_CATEGORY+" (" + COLUMN_CATEGORY_ID
-                + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COLUMN_CATEGORY_TITLE + " TEXT UNIQUE);"); //tried to add unique option/ check if it is working
 
         insertDataToCategory(db);
 
