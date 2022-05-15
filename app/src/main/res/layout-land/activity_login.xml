@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/colorDarkBlueBg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Login"
+            android:textColor="@color/colorWhiteFont"
+            android:textSize="22sp" />
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="50dp"
+            android:layout_marginTop="0dp">
+
+
+            <EditText
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:singleLine="true"
+                android:hint="Email"
+                android:background="@drawable/btn_border"
+                android:padding="10dp"
+                android:id="@+id/txtEmail"
+                />
+            <EditText
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:singleLine="true"
+                android:hint="Password"
+                android:background="@drawable/btn_border"
+                android:padding="10dp"
+                android:id="@+id/txtPassword"
+                />
+            <Button
+                android:id="@+id/addCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="login"
+                android:fontFamily="sans-serif-medium"
+                android:background="@drawable/btn_add_task"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="20dp" />
+
+            <TextView android:id="@+id/lnkRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="New in Planner? Register here"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="@color/colorDarkBlueBg"/>
+
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

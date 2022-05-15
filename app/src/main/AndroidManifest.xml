@@ -13,11 +13,11 @@
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".activity.NewTaskActivity"/>
@@ -25,6 +25,17 @@
             android:name=".activity.NewCategoryActivity"/>
         <activity
             android:name=".activity.ViewRecommendActivity"/>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                            <action android:name="android.intent.action.MAIN" />
+
+                            <category android:name="android.intent.category.LAUNCHER" />
+                        </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.RegisterActivity"/>
         <provider
             android:name=".TaskProviderDatabase"
             android:authorities="oop.dayplanner3.providers.TaskList"
